@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform:
-    uses: ./.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
     with:
       TERRAFORM_VERSION: 1.14.3
       ENVIRONMENT: "Dev"
