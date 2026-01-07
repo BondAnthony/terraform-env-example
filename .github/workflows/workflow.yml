@@ -13,22 +13,7 @@ on:
 
 jobs:
   terraform:
-    name: "Dev"
-    environment: Dev
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Terraform
-        uses: ./.github/workflows/terraform.yml@main
-        with:
-          AWS_REGION: ${{ env.AWS_REGION }}
-          AWS_SESSION: ${{ env.AWS_SESSION }}
-          TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+    uses: ./.github/workflows/terraform.yml@main
+    with:
+      TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+      ENVIRONMENT: "Dev"
