@@ -10,6 +10,9 @@ on:
 
 jobs:
   terraform:
+    permissions:
+      id-token: write
+      contents: read
     uses: ./.github/workflows/terraform.yml
     with:
       TERRAFORM_VERSION: 1.14.3
