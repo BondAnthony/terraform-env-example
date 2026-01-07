@@ -4,10 +4,20 @@ env:
   TERRAFORM_VERSION: 1.14.3
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_call:
+    inputs:
+      terraform_version:
+        required: false
+        type: string
+        default: 1.14.3
+      AWS_REGION:
+        required: true
+        type: string
+        default: "us-east-2"
+      AWS_SESSION:
+        required: true
+        type: string
+        default: "GithubAction"
 
 jobs:
   test:
@@ -25,7 +35,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_version: ${{ inputs.TERRAFORM_VERSION }}
 
       - name: Terraform Init
         id: init
@@ -52,8 +62,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
-          role-session-name: ${{ env.AWS_SESSION }}
+          aws-region: ${{ inputs.AWS_REGION }}
+          role-session-name: ${{ inputs.AWS_SESSION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3

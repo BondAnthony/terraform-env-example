@@ -1,0 +1,34 @@
+name: "EnvDeployment"
+
+env:
+  TERRAFORM_VERSION: 1.14.3
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: "Dev"
+    environment: Dev
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Dev
+        uses: ./.github/workflows/terraform.yml
+        with:
+          AWS_REGION: ${{ env.AWS_REGION }}
+          AWS_SESSION: ${{ env.AWS_SESSION }}
+          TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
