@@ -1,4 +1,4 @@
-name: "EnvDeployment"
+name: "Deployment"
 
 env:
   TERRAFORM_VERSION: 1.14.3
@@ -26,8 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Dev
-        uses: ./.github/workflows/terraform.yml
+      - name: Terraform
+        uses: ./.github/workflows/terraform.yml@main
         with:
           AWS_REGION: ${{ env.AWS_REGION }}
           AWS_SESSION: ${{ env.AWS_SESSION }}
