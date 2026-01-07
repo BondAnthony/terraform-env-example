@@ -1,8 +1,5 @@
 name: "Deployment"
 
-env:
-  TERRAFORM_VERSION: 1.14.3
-
 on:
   push:
     branches:
@@ -15,5 +12,6 @@ jobs:
   terraform:
     uses: ./.github/workflows/terraform.yml@main
     with:
-      TERRAFORM_VERSION: ${{ env.TERRAFORM_VERSION }}
+      TERRAFORM_VERSION: 1.14.3
       ENVIRONMENT: "Dev"
+    secrets: inherit
