@@ -75,11 +75,10 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Init
-        # env:
-        #   TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowercase.outputs.envLower}}
+        env:
+          TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowercase.outputs.envLower}}
         run: |
           terraform init
-          terraform workspace select ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}} || terraform workspace new ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}}
 
       - name: Terraform Format
         id: fmt
