@@ -2,7 +2,8 @@ terraform {
   cloud {
     organization = "abond-dev"
     workspaces {
-      name = "terraform-env-example"
+      project = "StateMgmt"
+      tags    = ["repo:terraform-env-example"]
     }
   }
 }
