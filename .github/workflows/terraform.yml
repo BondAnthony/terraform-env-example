@@ -76,6 +76,8 @@ jobs:
 
       - name: Terraform Init
         id: init
+        env:
+          TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}}
         run: |
           terraform init
           terraform workspace select ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}} || terraform workspace new ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}}
