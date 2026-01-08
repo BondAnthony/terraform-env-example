@@ -90,6 +90,8 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        env:
+          TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowercase.outputs.envLower}}
         run: terraform plan
 
       - uses: actions/github-script@v8
@@ -151,4 +153,6 @@ jobs:
 
       - name: Terraform Apply
         id: apply
+        env:
+          TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowercase.outputs.envLower}}
         run: terraform apply -auto-approve
