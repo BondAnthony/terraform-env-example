@@ -75,10 +75,8 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Init
-        id: init
-        env:
-          TF_WORKSPACE: ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}}
         run: |
+          TF_WORKSPACE=${{ github.event.repository.name }}-${{steps.toLowercase.outputs.envLower}}
           terraform init
           terraform workspace select ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}} || terraform workspace new ${{ github.event.repository.name }}-${{steps.toLowerCase.outputs.envLower}}
 
