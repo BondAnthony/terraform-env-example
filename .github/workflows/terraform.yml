@@ -55,17 +55,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Configure AWS Admin credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
-          role-session-name: ${{ env.AWS_SESSION }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: ${{ vars.AWS_SESSION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ inputs.TERRAFORM_VERSION }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Init
         id: init
